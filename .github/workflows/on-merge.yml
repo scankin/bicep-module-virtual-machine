@@ -1,0 +1,24 @@
+on: 
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  generate_release_type:
+    name: Generate Release Type
+    uses: scankin/github-automation/.github/workflows/generate-release-type.yml@1.0.0
+    with:
+      repository_name: ${{ github.repository }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create_release:
+    name: Create Release
+    needs: ['generate_release_type']
+    uses: scankin/github-automation/.github/workflows/create-release.yml@1.0.0
+    with:
+      repository_name: ${{ github.repository }}
+      release_type: ${{ needs.generate_release_type.outputs.release_type }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
