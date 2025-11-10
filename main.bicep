@@ -23,6 +23,7 @@ param dataDisks array = [
 ]
 
 var nicName = '${virtualMachineName}-nic-01'
+var ipConfigName = '${nicName}-ipconfig'
 
 resource networkInterface 'Microsoft.Network/networkInterfaces@2024-10-01' = {
   name: nicName
@@ -30,7 +31,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2024-10-01' = {
   properties: { 
     ipConfigurations: [
       {
-        name: '${nicName}-ipconfig'
+        name: ipConfigName
         properties: {
           privateIPAllocationMethod: 'Static'
           privateIPAddress: privateIpAddress
