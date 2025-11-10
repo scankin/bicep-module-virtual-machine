@@ -1,7 +1,7 @@
 param virtualMachineName string = 'example-virtual-machine'
 param location string = 'uksouth'
 param privateIpAddress string = '10.0.0.0'
-param subnetName string = 'subnet-1'
+param subnetId string
 param vmSize string = 'Standard_B2ts_v2'
 param adminUsername string = 'adminUser'
 @secure()
@@ -24,10 +24,6 @@ param dataDisks array = [
 
 var nicName = '${virtualMachineName}-nic-01'
 
-resource subnet 'Microsoft.Network/virtualNetworks/subnets@2024-10-01' existing = { 
-  name: subnetName
-}
-
 resource networkInterface 'Microsoft.Network/networkInterfaces@2024-10-01' = {
   name: nicName
   location: location
@@ -39,7 +35,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2024-10-01' = {
           privateIPAllocationMethod: 'Static'
           privateIPAddress: privateIpAddress
           subnet: { 
-            id: subnet.id
+            id: subnetId
           }
         }
       }
