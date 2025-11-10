@@ -1,4 +1,5 @@
-param virtualMachineName string = 'example-virtual-machine'
+param virtualMachineName string = 'example-vm'
+param computerName string
 param location string = 'uksouth'
 param privateIpAddress string = '10.0.0.0'
 param subnetId string
@@ -52,6 +53,7 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2025-04-01' = {
       vmSize: vmSize
     }
     osProfile: {
+      computerName: computerName
       adminUsername: adminUsername
       adminPassword: adminPassword
     }

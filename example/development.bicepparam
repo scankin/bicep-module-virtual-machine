@@ -14,6 +14,7 @@ param subnetConfiguration = [
 ]
 param virtualMachines = [
   {
+    computerName: 'examplevm1'
     privateIpAddress: '10.0.0.4'
     vmSize: 'Standard_B2ts_v2'
     imageReference: { 

@@ -93,6 +93,7 @@ module virtualMachine '../main.bicep' = [
   for (virtualMachine, i) in virtualMachines: {
     params: {
       virtualMachineName: replace(virtualMachineName, '__key__', '0${i}')
+      computerName: virtualMachine.computerName
       location: location
       privateIpAddress: virtualMachine.privateIpAddress
       vmSize: virtualMachine.vmSize
