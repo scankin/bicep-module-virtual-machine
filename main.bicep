@@ -60,7 +60,7 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2025-04-01' = {
         publisher: imageReference.publisher
         offer: imageReference.offer
         sku: imageReference.sku
-        version: imageReference.version != null ? imageReference.version : 'latest'
+        version: contains(imageReference, 'version') != false ? imageReference.version : 'latest'
       }
       osDisk: {
         createOption: 'FromImage'
